@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="vue.js"></script>
+		<style>
+			button{
+				width: 200px;
+				height: 100px;
+			}
+			.disabled{
+				background-color: #ddd;
+				color:black;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<button :disabled="mydis">{{content}}</button>
+		</div>
+		<script>
+			var vm = new Vue({
+				el:"#app",
+				data:{
+					mydis:true,
+					count:10,
+					content:"10"
+				},
+				mounted:function(){
+					setInterval(()=>{
+						if(this.count<1){
+							this.mydis=false;
+							this.content=this.count
+						}else{
+						this.mydis=true;
+						this.count--;
+						this.content=this.count	
+					}
+					// if(this.count==1){
+					// 	this.mydis=true;
+					// 	this.count--;
+					// 	this.content=this.count
+					// }
+					},1000)
+				}
+			})
+		</script>
+	</body>
+</html>

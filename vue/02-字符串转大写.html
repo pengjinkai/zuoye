@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<script type="text/javascript" src="vue.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<input type="text" :bind:id="mydd" value=""/>
+			<button type="button" @click="show">转换</button>
+		</div>
+		<script>
+			var xm = new Vue({
+				el:"#app",
+				data:{
+					mydd:''
+				}
+				methods:{
+					show:function(){
+						console.log(this.value)
+						this.mydd=this.mydd.toUpperCase()
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="vue.js"></script>
+		<style>
+			.aa{
+				width:300px;
+				height: 300px;
+				background: red;
+			}
+			.bb{
+				width:300px;
+				height: 300px;
+				background: blue;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<div :class="[ok?'aa':'bb']"></div>
+		    <button @click="show">自然美</button>
+		</div>
+		<script>
+			var xm =new Vue({
+				el:"#app",
+				data:{
+					ok:true
+				},
+				methods:{
+					show:function(){
+						this.ok=!this.ok;
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

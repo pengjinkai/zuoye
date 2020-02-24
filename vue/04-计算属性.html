@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="vue.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			名字{{fullName}}
+		</div>
+		<script>
+			var xm = new Vue({
+				el:"#app",
+				data:{
+					first:"z",
+					last:"k"
+				},
+				computed:{
+					fullName:function(){
+							return this.first+this.last;
+						
+					}
+				}
+			})
+		</script>
+	</body>
+</html>
