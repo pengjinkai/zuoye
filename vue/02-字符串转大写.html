@@ -7,19 +7,20 @@
 	</head>
 	<body>
 		<div id="app">
-			<input type="text" :bind:id="mydd" value=""/>
+			<input type="text" id="my"/>
 			<button type="button" @click="show">转换</button>
+			<div>{{mydd}}</div>
 		</div>
 		<script>
 			var xm = new Vue({
 				el:"#app",
 				data:{
 					mydd:''
-				}
+				},
 				methods:{
 					show:function(){
-						console.log(this.value)
-						this.mydd=this.mydd.toUpperCase()
+						var my=document.getElementById("my");
+						this.mydd=my.value.toUpperCase();
 					}
 				}
 			})
