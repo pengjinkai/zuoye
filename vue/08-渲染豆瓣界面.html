@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width">
+		<title></title>
+		<style>
+			*{
+				padding: 0;
+				margin: 0;
+			}
+			body{
+				width: 100%;
+			}
+			.eqq{
+				font-size: 16px;
+				width: 100%;
+			}
+			.eqq h2{
+				display: inline-block;
+			}
+			.eqq a{
+				float: right;
+			}
+			.list{
+				display: flex;
+				flex-wrap: nowrap;
+				flex-direction: row;
+			}
+			.list li div{
+				width:80px;
+				height: 110px;
+				margin: 5px;
+			}
+			.list li div img{
+				width: 80px;
+				height: 110px;
+			}
+			.pp{
+				margin-top: 70px;
+			}
+		</style>
+		<script src="vue.js"></script>
+		<script src="axios.min.js" charset="UTF-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			<div>
+				<div class="eqq"><h2>近期值得看的国产剧</h2><a href="">更多</a></div>
+				<ul class="list">
+					<li v-for="item in guochan">
+						<div>
+							<img :src="item.cover.url" title="item.titles">
+							{{item.title}}
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div class="pp">
+				<div class="eqq"><h2>近期值得看的综艺</h2><a href="">更多</a></div>
+				<ul class="list">
+					<li v-for="item in zongyi">
+						<div>
+							<img :src="item.cover.url" title="item.titles">
+							{{item.title}}
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div class="pp">
+				<div class="eqq"><h2>近期值得看的综艺</h2><a href="">更多</a></div>
+				<ul class="list">
+					<li v-for="item in yinmei">
+						<div>
+							<img :src="item.cover.url" title="item.titles">
+							{{item.title}}
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		
+		<script>
+			var xm =new Vue({
+				el:"#app",
+				data:{
+					guochan:[],
+					zongyi:[],
+					yinmei:[]
+				},
+				mounted:function(){
+					axios.get("js/dianshiju.json").then((data)=>{
+						this.guochan=data.data.subject_collection_items;
+					})
+					axios.get("js/zongyi.json").then((data)=>{
+						this.zongyi=data.data.subject_collection_items;
+					})
+					axios.get("js/yingmei.json").then((data)=>{
+						this.yinmei=data.data.subject_collection_items;
+					})
+				}
+			})
+		</script>
+	</body>
+</html>
