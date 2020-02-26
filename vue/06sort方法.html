@@ -16,7 +16,7 @@
 	<body>
 		<table id="app" border="1" cellspacing="0">
 			<caption>学生信息表</caption>
-			<th>学号</th>
+			<th @click="sort">学号</th>
 			<th>姓名</th>
 			<th>性别</th>
 			<th>籍贯</th>
@@ -28,7 +28,6 @@
 				<td>{{item.ji}}</td>
 				<td>{{item.POS}}</td>
 			</tr>
-			<button @click="sort">降序</button>
 		</table>
 		<script>
 			var xm =new Vue({
@@ -41,12 +40,13 @@
 						{id:4,"name":"赵","pe":"男","ji":"广西",POS:4645456},
 						{id:5,"name":"刘","pe":"女","ji":"福建",POS:456465}
 					],
+					
 				},
 				methods:{
 					sort:function(){
 						console.log(this.list)
 						this.list=this.list.sort((a,b)=>{
-							return a.id-b.id
+							return b.id-a.id
 						})
 					}
 				}
