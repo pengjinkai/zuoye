@@ -46,7 +46,7 @@
 					sort:function(){
 						console.log(this.list)
 						this.list=this.list.sort((a,b)=>{
-							return b.id-a.id
+							return !b.id-a.id
 						})
 					}
 				}
