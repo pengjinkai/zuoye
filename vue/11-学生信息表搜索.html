@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="vue.js">
+		</script>
+		<style>
+			table{
+				width: 500px;
+				margin: 100px auto;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<table id="app" border="1" cellspacing="0">
+			<caption>学生信息表</caption>
+			<th>学号</th>
+			<th>姓名</th>
+			<th>性别</th>
+			<th>籍贯</th>
+			<th>联系方式</th>
+			<tr v-for="item in list">
+				<td>{{item.id}}</td>
+				<td>{{item.name}}</td>
+				<td>{{item.pe}}</td>
+				<td>{{item.ji}}</td>
+				<td>{{item.POS}}</td>
+			</tr>
+			<input type="text" v-model="sele" @blur='queryData' @input="queryData">
+		</table>
+		<script>
+			var xm =new Vue({
+				el:"#app",
+				data:{
+					list:[
+						{"id":1,"name":"李","pe":"男","ji":"江西",POS:5561344},
+						{"id":2,"name":"张","pe":"男","ji":"广东",POS:211651561},
+						{"id":3,"name":"黄","pe":"男","ji":"湖南",POS:1565},
+						{"id":4,"name":"赵","pe":"男","ji":"广西",POS:4645456},
+						{"id":5,"name":"刘","pe":"女","ji":"福建",POS:456465}
+					],
+					sele:""
+				},
+				methods:{
+					queryData(){
+						let list =this.list.filter(item.indexOf(this.sele)>=0);
+						this.list=list;
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

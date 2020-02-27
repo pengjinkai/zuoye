@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			.aa{
+				width: 700px;
+				border-collapse: collapse;
+			}
+			.aa th,.aa td{
+				text-align: center;
+			}
+		</style>
+		<script src="vue.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<table class="aa" border="1" cellspacing="0">
+				<tr>
+				<th>商品名称</th>
+				<th>商品价格</th>
+				<th>商品数量</th>
+				<th>操作</th>
+				</tr>
+				<tr v-for="item in msg">
+					<td>{{item.name}}</td>
+					<td>{{item.price}}</td>
+					<td><button @click="ip(item)">-</button>{{item.num}}<button @click="up(item)">+</button></td>
+					<td><button @click="add">加入购物车</button></td>
+				</tr>
+			</table>
+			<h2>购物车</h2>
+			<table class="aa" border="1" cellspacing="0">
+				<tr>
+				<th>商品名称</th>
+				<th>商品价格</th>
+				<th>商品数量</th>
+				<th>操作</th>
+				</tr>
+				<tr>
+					<td v-for="item in mass">
+						<td>{{mass.name}}</td>
+						<td>{{mass.price}}</td>
+						<td><button @click="ip(item)">-</button>{{mass.num}}<button @click="up(item)">+</button></td>
+						<td><button @click="sc">移出购物车</button></td>
+					</td>
+				</tr>
+				<td colspan="6" >总价：{{sum}}</td>
+			</table>
+			
+		</div>
+		<script>
+			var xm =new Vue({
+				el:"#app",
+				data:{
+					msg:[
+					  {"name":"iphone X","price":5000,num:1},
+					  {"name":"三星手机","price":4040,num:1},
+					  {"name":"小米","price":2000,num:1},
+					  {"name":"oppo","price":1080,num:1}
+					],
+					mass:[],
+					name:"",
+					price:0,
+					num:0,
+					sum:"",
+				},
+				methods:{
+					up:function(item){
+						item.num++;
+					},
+					ip:function(item){
+						if(item.num>=1){
+							item.num--;
+						}
+					},
+					add:function(){
+						let mss={};
+						mss.name=this.name;
+						mss.price=this.price;
+						mss.num=this.num;
+						this.mass.push(mss)
+						this.sum=mss.price*mss.name;
+					}
+					
+				}
+			})
+		</script>
+	</body>
+</html>
