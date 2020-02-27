@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width" />
+		<style>
+			*{
+				padding: 0;
+				margin: 0;
+			}
+			ul,li{
+				list-style: none;
+			}
+			.myHeader{
+				width: 100%;height: 50px;
+				border-bottom: 1px solid #eee;
+			}
+			.myHeader ul{
+				display: flex;
+				flex-wrap: nowrap;
+				flex-direction: row;
+			}
+			.myContent ul{
+				display: flex;
+				flex-wrap: nowrap;
+				flex-direction: row;
+			}
+			.myFooter ul{
+				display: flex;
+				flex-wrap: nowrap;
+				flex-direction: row;
+			}
+			
+			.myHeader ul div{
+				width: 80px;
+				height: 110px;
+				margin: 5px;
+			}
+			.myContent ul div{
+				width: 80px;
+				height: 110px;
+				margin: 5px;
+			}
+			.myFooter ul div{
+				width: 80px;
+				height: 110px;
+				margin: 5px;
+			}
+			.myHeader ul div img{
+				width: 80px;
+				height: 110px;
+			}
+			.myContent ul div img{
+				width: 80px;
+				height: 110px;
+			}
+			.myFooter ul div img{
+				width: 80px;
+				height: 110px;
+			}
+			.myContent{
+				width: 100%;height: 100%;
+				border-bottom: 1px solid #eee;
+				
+			}
+			.myFooter{
+				width: 100%;height: 100%;
+				border-bottom: 1px solid #eee;
+			}
+			.aa{
+				margin-top: 200px;
+			}
+		</style>
+		<script src="js/vue.js"></script>
+		<script src="js/axios.min.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<my-header :ihone="guochan"></my-header>
+			<my-content :phone="zongyi"></my-content>
+			<my-footer :hone="yinmei"></my-footer>
+		</div>
+		<script type="text/javascript">
+			//1.定义组件
+			var myHeader={
+				props:["ihone"],
+				created:function(){
+					console.log(this.ihone);
+				},
+				template:`<div>
+				<div class="myHeader">
+				<h2>近期值得看的电视剧</h2>
+				<ul>
+					<li v-for="(item,index) in ihone">
+					<div>
+					<img :src="item.cover.url" title="item.titles">
+					{{item.title}}
+					</div>
+					</li>
+				</ul>
+				</div>
+				</div>`
+			}
+			var myContent={
+				props:["phone"],
+				created:function(){
+					console.log(this.phone);
+				},
+				template:`<div class="aa">
+				<div class="myContent">
+				<h2>近期值得看的电视剧</h2>
+				<ul>
+					<li v-for="(item,index) in phone">
+					<div>
+					<img :src="item.cover.url" title="item.titles">
+					{{item.title}}
+					</div>
+					</li>
+				</ul>
+				</div>
+				</div>`
+			}
+			var myFooter={
+				props:["hone"],
+				created:function(){
+					console.log(this.hone);
+				},
+				template:`
+				<div class="aa"><div class="myFooter">
+				<h2>近期值得看的电视剧</h2>
+				<ul>
+					<li v-for="(item,index) in hone">
+					<div>
+					<img :src="item.cover.url" title="item.titles">
+					{{item.title}}
+					</div>
+					</li>
+				</ul>
+				</div>
+				<div class="aa">`
+			}
+			
+			var vm = new Vue({
+				el:"#app",
+				data:{
+					guochan:[],
+					zongyi:[],
+					yinmei:[]
+				},
+			mounted:function(){
+				axios.get("js/dianshiju.json").then((data)=>{
+					this.guochan=data.data.subject_collection_items;
+				})
+				axios.get("js/zongyi.json").then((data)=>{
+					this.zongyi=data.data.subject_collection_items;
+				})
+				axios.get("js/yingmei.json").then((data)=>{
+					this.yinmei=data.data.subject_collection_items;
+				})
+			},
+			
+			//2.引入组件
+			components:{
+				myHeader,
+				myContent,
+				myFooter
+			    }
+			})
+		</script>
+	</body>
+</html>
