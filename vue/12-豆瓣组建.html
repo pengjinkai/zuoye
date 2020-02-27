@@ -62,15 +62,15 @@
 			.myContent{
 				width: 100%;height: 100%;
 				border-bottom: 1px solid #eee;
+				margin-top: 200px;
 				
 			}
 			.myFooter{
 				width: 100%;height: 100%;
 				border-bottom: 1px solid #eee;
-			}
-			.aa{
 				margin-top: 200px;
 			}
+			
 		</style>
 		<script src="js/vue.js"></script>
 		<script src="js/axios.min.js"></script>
@@ -88,7 +88,7 @@
 				created:function(){
 					console.log(this.ihone);
 				},
-				template:`<div>
+				template:`
 				<div class="myHeader">
 				<h2>近期值得看的电视剧</h2>
 				<ul>
@@ -99,7 +99,6 @@
 					</div>
 					</li>
 				</ul>
-				</div>
 				</div>`
 			}
 			var myContent={
@@ -107,7 +106,7 @@
 				created:function(){
 					console.log(this.phone);
 				},
-				template:`<div class="aa">
+				template:`
 				<div class="myContent">
 				<h2>近期值得看的电视剧</h2>
 				<ul>
@@ -119,7 +118,7 @@
 					</li>
 				</ul>
 				</div>
-				</div>`
+				`
 			}
 			var myFooter={
 				props:["hone"],
@@ -127,7 +126,7 @@
 					console.log(this.hone);
 				},
 				template:`
-				<div class="aa"><div class="myFooter">
+				<div class="myFooter">
 				<h2>近期值得看的电视剧</h2>
 				<ul>
 					<li v-for="(item,index) in hone">
@@ -137,8 +136,7 @@
 					</div>
 					</li>
 				</ul>
-				</div>
-				<div class="aa">`
+				</div>`
 			}
 			
 			var vm = new Vue({
