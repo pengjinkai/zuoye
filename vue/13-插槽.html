@@ -34,21 +34,21 @@
 	</head>
 	<body>
 		<div id="app">
-			<child :filst="guochan" text="国产剧">
+			<child :filst="guochan">国产剧
 			</child>
-			<child :filst="zongyi" text="综艺"></child>
-			<child :filst="yinmei" text="英美剧"></child>
+			<child :filst="zongyi">综艺</child>
+			<child :filst="yinmei">英美剧</child>
 		</div>
 		
 		<script>
 			var child={
-				props:["text","filst"],
+				props:["filst"],
 				created:function(){
 					console.log(this.filst);
 				},
 				template:`
 				<div>
-				<h2>近期值得看的{{text}}</h2>
+				<h2>近期值得看的<slot></slot></h2>
 				<ul class="list">
 					<li v-for="(item,index) in filst">
 					<div>
