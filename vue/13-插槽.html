@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width">
+		<title></title>
+		<style>
+				*{
+					padding: 0;
+					margin: 0;
+				}
+				ul,li{
+					list-style: none;
+				}
+				.list{
+					display: flex;
+					flex-wrap: nowrap;
+					flex-direction: row;
+					overflow: scroll;
+				}
+				.list li div{
+					width: 80px;
+					height:110px;
+					margin-top: 5px;
+					background: #DDDDDD;
+				}
+				.list li div img{
+					width: 80px;
+					height: 110px;
+				}
+		</style>
+		<script src="js/vue.js"></script>
+		<script src="js/axios.min.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<child :filst="guochan" text="国产剧">
+			</child>
+			<child :filst="zongyi" text="综艺"></child>
+			<child :filst="yinmei" text="英美剧"></child>
+		</div>
+		
+		<script>
+			var child={
+				props:["text","filst"],
+				created:function(){
+					console.log(this.filst);
+				},
+				template:`
+				<div>
+				<h2>近期值得看的{{text}}</h2>
+				<ul class="list">
+					<li v-for="(item,index) in filst">
+					<div>
+					<img :src="item.cover.url" title="item.titles">
+					{{item.title}}
+					</div>
+					</li>
+				</ul>
+				</div>
+				`
+			}
+			var xm =new Vue({
+				el:"#app",
+				data:{
+					guochan:[],
+					zongyi:[],
+					yinmei:[]
+				},
+				mounted:function(){
+					axios.get("js/dianshiju.json").then((data)=>{
+						this.guochan=data.data.subject_collection_items;
+					})
+					axios.get("js/zongyi.json").then((data)=>{
+						this.zongyi=data.data.subject_collection_items;
+					})
+					axios.get("js/yingmei.json").then((data)=>{
+						this.yinmei=data.data.subject_collection_items;
+					})
+				},
+				components:{
+					child
+				}
+			})
+		</script>
+	</body>
+</html>

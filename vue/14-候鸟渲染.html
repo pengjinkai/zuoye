@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width"/>
+		<meta name="referrer" content="no-referrer"/>
+		<title></title>
+		<style>
+			body, html {
+			    padding: 0;
+			    margin: 0;
+			    position: relative;
+			    height: 100%;
+			}
+			ul,li{
+				list-style: none;
+			}
+			.swiper-container {
+			  width: 100%;
+			  height: 30%;
+			}
+			.swiper-slide {
+			    display: flex;
+			    flex-direction: column;
+			    align-items: center;
+			    justify-content: center;
+			    position: relative;
+			}
+			.swiper-slide img {
+			    display: block;
+			    width: 100%;
+			}
+			@media only screen and (min-width: 769px) {
+			    .swiper-slide:first-child { transition: transform 100ms; }
+			    .swiper-slide:first-child img { transition: box-shadow 500ms; }
+			    .swiper-slide.swiper-slide-active:first-child { transform: translateX(50%); z-index: 2; }
+			    .swiper-slide.swiper-slide-active:first-child img { box-shadow: 0px 32px 80px rgba(0,0,0,0.35); }
+			    .swiper-slide:nth-child(2) { transition: transform 100ms; }
+			    .swiper-slide.swiper-slide-next:nth-child(2) { transform: translateX(55%); z-index: 1; } 
+			    .swiper-container[dir=rtl] .swiper-slide.swiper-slide-active:first-child { transform: translateX(-50%); }
+			    .swiper-container[dir=rtl] .swiper-slide.swiper-slide-next:nth-child(2) { transform: translateX(-55%); } 
+			}
+			.nav{
+				width: 100%;
+				height: 150px;
+			}
+			.nav div{
+				width: 100%;
+				height: 50px;
+				border-bottom: 1px solid #b9b9b9;
+				color: #858585;
+				font-size: 32px;
+				text-align: center;
+				line-height: 50px;
+			}
+			.list li{display: flex;justify-content: space-around;}
+			.list li div img{
+				width: 200px;
+				height: 200px;
+				}
+			.list li .left{
+				width: 40%;
+			    background: #d4cdcd;
+				flex: none;
+			}
+			.list li .right{
+				  width: 60%;
+				  height: 200px;
+				  flex: none;
+			}
+		</style>
+		<link rel="stylesheet" type="text/css" href="css/swiper.min.css"/>
+		<script src="js/axios.min.js"></script>
+		<script src="js/vue.js"></script>
+	</head>
+	<body>
+		<!-- 分页器 -->
+		<div class="swiper-container">
+		  <div class="swiper-wrapper">
+		    <div class="swiper-slide"><img src="./1.png"></div>
+		    <div class="swiper-slide"><img src="./2.png"></div>
+		    <div class="swiper-slide"><img src="./3.png"></div>
+		    <div class="swiper-slide"><img src="./4.png"></div>
+		    <div class="swiper-slide"><img src="./5.png"></div>
+		  </div>
+		  <div class="swiper-scrollbar"></div>
+		  <div class="swiper-button-next"></div>
+		  <div class="swiper-button-prev"></div>
+		  <div class="swiper-pagination"></div>
+		</div>
+		
+		<!-- 导航栏下方 -->
+		<div class="nav"><div>
+		推荐	
+		</div></div>
+		<div id="app">
+		<!-- 首页 -->
+		<child :pro="tupian"></child>
+		</div>
+		<!-- 搜索框 -->
+		<div></div>
+		<!-- 底部 -->
+		<div></div>
+		<script type="text/javascript" src="js/swiper.min.js"></script>
+		<script>
+			var swiper = new Swiper('.swiper-container', {
+			  slidesPerView: 1,
+			  centeredSlides: false,
+			  slidesPerGroupSkip: 1,
+			  grabCursor: true,
+			  keyboard: { enabled: true },
+			  breakpoints: { 769: { slidesPerView: 2, slidesPerGroup: 2 } },
+			  scrollbar: { el: '.swiper-scrollbar' },
+			  navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+			  pagination: { el: '.swiper-pagination', clickable: true }
+			});
+			
+			//如果你初始化时没有定义Swiper实例，后面也可以通过Swiper的HTML元素来获取该实例
+			new Swiper('.swiper-container')
+			var mySwiper = document.querySelector('.swiper-container').swiper
+			mySwiper.slideNext();
+			var child = {
+				props:["pro"],
+				created:function(){
+					console.log(this.pro);
+				},
+				template:`
+				<div>
+				<ul class="list">
+				<li v-for="(item,index) in pro">
+				<div class="left"><img src="item.proPicUrl">
+				</img>
+				<div class="right"><h2>{{item.proTitle}}</h2>
+				</div>
+				
+				</li></ul>
+				
+				</div>	
+				</div>
+				`,
+			}
+			var xm =new Vue({
+				el:"#app",
+				data:{
+					tupian:[],
+				},
+				mounted:function(){
+					axios.get("houniao/two.json").then((data)=>{
+						console.log(data);
+						this.tupian=data.data;
+						
+					})
+				},
+				components:{
+					child
+				}
+			})
+		</script>
+	</body>
+</html>
