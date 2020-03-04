@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="../js/vue.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<p>{{price|number}}</p>
+		</div>
+		<script>
+			var xm =new Vue({
+				el:"#app",
+				data:{
+					price:435
+				},
+				filters:{
+					number:function(price){
+						return `$${price}`
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

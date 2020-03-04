@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			*{
+				padding: 0;
+				margin: 0;
+			}
+			ul,li{
+				list-style: none;
+			}
+			ul{
+				display: flex;
+			}
+			ul li{
+				width: 80px; height:110px;
+			}
+			ul li div img{
+				width: 80px; height:110px;
+			}
+		</style>
+		<script src="../js/vue.js"></script>
+		<script src="../js/vue-router.js"></script>
+		<script src="../js/axios.min.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<!-- 5.路由信息 -->
+			<router-link to="/list">本周最受欢迎top5</router-link>
+			<router-link to="/tea">neirong</router-link>
+			<!-- 6.路由出口 -->
+			<router-view></router-view>
+		</div>
+		<script type="text/javascript">
+			var	mylist = {
+				data:function(){
+					return{
+						list:[]
+					}
+				},
+				template:`<div>
+				<h2>本周最受欢迎top5</h2
+				<ul>
+					<li v-for="(item,index) in list ">
+					<router-link :to="'/tea/'+item.pro_id">
+					<img :src="item.pro_imglist.url"/>
+					{{item.pro_name}}</router-link>
+					</li>
+				</ul>
+				</div>`,
+				mounted:function(){
+					axios.post("https://www.jvhv.com/siteindex.php/Index/Index.html",{
+					}).then((res)=>{
+						console.log(res)
+						this.list=res.data.data.CourseTop5;
+					})
+				}
+				
+			}
+			
+			
+			var tetpp = {
+						item:{},
+				template:`<div>neirong
+				产品名称：
+				</div>`,
+				mounted:function(){
+					axios.post("https://www.jvhv.com/siteindex.php/Lesson/Detail.html"+this.id,{
+						pro_id: 141,
+						fid:''
+					}).then((res)=>{
+						console.log(res)
+					this.item=res.data.data;
+						})
+					}
+			}
+			
+			//2.配置内容页
+			var routes = [
+				{"path":"/list","component":mylist},
+				{"path":"/tea/:id","component":tetpp}//配置动态路由
+			]
+			//3.创建路由对象
+			var router =new VueRouter({
+				routes:routes
+			})
+			//跟组件
+			var xm =new Vue({
+				el:"#app",
+				data:{
+				},
+				//4.注册
+				router:router
+			})
+		</script>
+	</body>
+</html>
