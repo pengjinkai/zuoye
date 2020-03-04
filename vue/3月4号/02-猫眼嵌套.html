@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device/width"/>
+		<title></title>
+		<style>
+			*{
+				padding: 0;
+				margin:0;
+			 }
+			 .con{
+				 width: 100%;
+				 height: 80%;
+			 }
+			.box{
+				width: 100%;
+				height: 50px;
+				position: fixed;
+				bottom: 0;
+				display: flex;
+				justify-content: space-around;
+				background: #CCCCCC;
+			}	
+			.box a{
+				text-align: center;
+				line-height: 50px;
+				color: #f03d37;
+				flex: 1;
+				}
+				
+		</style>
+		<script src="../js/vue.js"></script>
+		<script src="../js/vue-router.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<div class="con">
+				<router-view></router-view>
+			</div>
+			<div class="box">
+				<router-link to="/mylist">电影</router-link>
+				<router-link to="/myabou">影院</router-link>
+				<router-link to="/mysett">我的</router-link>
+			</div>
+			
+		</div>
+		<script type="text/javascript" id="mylist">
+			<div>
+			<router-link to="/mylist/child1">正在上映</router-link>
+			<router-link to="/mylist/child2">即将上映</router-link>
+			<div class="seccon">
+				<router-view></router-view>
+			</div>
+			<div>	
+		</script>
+		<script>
+			var list ={
+				template:`#mylist`,
+			}
+			var abou ={
+				template:`<div>s</div>`,
+			}
+			var sett ={
+				template:`<div></div>`,
+			}
+			
+			//   子页
+			var child1={
+				template:`<div>
+				 <h2>热门影人</h2>
+				 </div>`,
+				
+				
+			}
+			
+			var child2={
+				template:`<div>
+				 <h2>近期最受期待</h2>
+				 </div>`,
+			}
+			//2.配套路由表
+			var routes=[
+				{"path":"/mylist",component:list,
+				children:[
+					{"path":"child1",component:child1},
+					{"path":"child2",component:child2},
+				]
+				},
+				{"path":"/myabou",component:abou},
+				{"path":"/mysett",component:sett}
+			]
+			//3.创建路由对象
+			var router=new VueRouter({
+				routes:routes
+			})
+			//跟组件
+			var xm = new Vue({
+				el:"#app",
+				data:{
+				},
+				router:router
+			})
+		</script>
+	</body>
+</html>

@@ -7,23 +7,24 @@
 	</head>
 	<body>
 		<div id="app">
-			{{timearr}}
-			<br/>
-			{{timearr|datamin}}
+			<ul>
+				<li v-for="(item,index) in timearr">
+				{{item}}--日期时间：{{item | formatData}}
+				</li>
+			</ul>
 		</div>
 		<script>
 			var xm =new Vue({
 				el:"#app",
 				data:{
-					timearr:['1579657789851','1563516693000','1578539380000'],
+					timearr:['1579657789851','1563516693000','1578539380000']
 				},
-				filters:{
-					datamin:function(timearr){
-						console.log(timearr);
-						  return getFullYear(timearr)
-					}
-				}
-			
+					filters:{
+							formatData:function(value,arg){
+								var d = new Date(parseInt(value));
+								return d.getFullYear()+'年'+(d.getMonth()+1)+'月'+d.getDate()+'日';
+										}
+									}
 			})
 		</script>
 	</body>
