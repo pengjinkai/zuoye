@@ -40,6 +40,7 @@
 	}
 
 	#nav {
+		background:#fff;
 		font-size: 12px;
 		position: fixed;
 		bottom: 0;
